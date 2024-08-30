@@ -11,7 +11,7 @@ local Take in
    fun {Take List Count}
       if Count == 0 then nil
       else if List == nil then nil
-	       else List.1|{Take List.2 Count - 1} end
+	   else List.1|{Take List.2 Count - 1} end
       end
    end
 end
@@ -20,7 +20,7 @@ local Drop in
    fun {Drop List Count}
       if Count == 0 then List
       else if List == nil then nil
-	       else {Drop List.2 Count - 1} end
+	   else {Drop List.2 Count - 1} end
       end
    end
 end
@@ -29,7 +29,7 @@ local Member in
    fun {Member List Element}
       if List == nil then false
       else if List.1 == Element then true
-	       else {Member List.2 Element} end
+	   else {Member List.2 Element} end
       end
    end
 end
@@ -49,7 +49,7 @@ local Position FindPosition in
    fun {FindPosition List Element Acc}
       if List == nil then ~1
       else if List.1 == Element then Acc
-	       else {FindPosition List.2 Element Acc + 1} end
+	   else {FindPosition List.2 Element Acc + 1} end
       end
    end
 end
