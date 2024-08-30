@@ -1,3 +1,50 @@
+{Browse 'Hello, World!'}
+
+local X Y Z in
+    Y = 300
+    Z = 30
+    X = Y * Z
+end
+
+local X Y in
+    X = "This is a string"
+    thread {System.showInfo Y} end
+    Y = X
+end
+
+local Max in
+   fun {Max Number1 Number2}
+      if Number1 >= Number2 then Number1
+      else Number2 end
+   end
+end
+
+local PrintGreater in
+   proc {PrintGreater Number1 Number2}
+      {System.showInfo {Max Number1 Number2}}
+   end
+end
+
+local Circle in
+   proc {Circle R}
+      PI = 355.0 / 113.0
+      D = 2.0 * R
+      A = PI * R * R
+      C = PI * D
+   in
+      {Show D}
+      {Show A}
+      {Show C}
+   end
+end
+
+local Factorial in
+   fun {Factorial N} % see the PDF for the other implementation
+      case N of 0 then 1
+      else N * {Factorial N-1} end
+   end
+end
+
 local Length in
    fun {Length List}
       case List
@@ -51,5 +98,25 @@ local Position FindPosition in
       else if List.1 == Element then Acc
 	   else {FindPosition List.2 Element Acc + 1} end
       end
+   end
+end
+
+local Push in
+   fun {Push List Element}
+      Element|List
+   end
+end
+
+local Peek in
+   fun {Peek List}
+      case List of Head|Tail then Head
+      else nil end
+   end
+end
+
+local Pop in
+   fun {Pop List}
+      case List of Head|Tail then Tail
+      else nil end
    end
 end
