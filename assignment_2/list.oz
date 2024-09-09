@@ -2,7 +2,7 @@ declare Length Take Drop Append Member Position FindPosition Push Peek Pop in
    fun {Length List}
       case List
       of nil then 0
-      [] Head|Tail then 1 + {Length Tail}
+      [] _|Tail then 1 + {Length Tail}
       end
    end
 
@@ -48,12 +48,11 @@ declare Length Take Drop Append Member Position FindPosition Push Peek Pop in
    end
 
    fun {Peek List}
-      case List of Head|Tail then Head
+      case List of Head|_ then Head
       else nil end
    end
 
    fun {Pop List}
-      case List of Head|Tail then Tail
+      case List of _|Tail then Tail
       else nil end
    end
-end
