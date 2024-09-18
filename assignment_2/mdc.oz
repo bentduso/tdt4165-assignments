@@ -1,6 +1,6 @@
 \insert './list.oz'
 
-declare Lex Tokenize Interpret DoInterpret Compute Unwrap in
+declare Lex Tokenize Interpret DoInterpret Compute Unwrap ExpressionTree ExpressionTreeInternal in
 fun {Lex Input}
    {String.tokens Input & }
 end
@@ -71,4 +71,37 @@ end
 
 fun {Unwrap List}
    {Map List fun {$ Token} Token.1 end}
+end
+
+fun {ExpressionTree Tokens}
+   {ExpressionTreeInternal Tokens nil}
+end
+
+fun {ExpressionTreeInternal Tokens ExpressionStack}
+   case Tokens
+   of nil then
+      case ExpressionStack
+      of Head|_ then Head
+      else raise "invalid expression" end
+      end
+   [] Head|Tail then
+      case Head
+      of number(N) then {ExpressionTreeInternal Tail N|ExpressionStack}
+      [] operator(type:Op) then
+	 if {Length ExpressionStack} < 2 then
+            raise "not enough operands for operator" end
+         else
+	    case ExpressionStack of Left|Right|Rest then
+	       case Op
+               of plus then {ExpressionTreeInternal Tail plus(Left Right)|Rest}
+               [] minus then {ExpressionTreeInternal Tail minus(Left Right)|Rest}
+               [] multiply then {ExpressionTreeInternal Tail multiply(Left Right)|Rest}
+               [] divide then {ExpressionTreeInternal Tail divide(Left Right)|Rest}
+               else raise "unknown operator" end
+               end
+            end
+	 end
+      else raise "invalid token" end
+      end
+   end
 end
