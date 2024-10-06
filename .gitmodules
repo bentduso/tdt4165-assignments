@@ -1,0 +1,3 @@
+[submodule "scala-project"]
+	path = scala-project
+	url = https://github.com/bentduso/tdt4165-scala-project
